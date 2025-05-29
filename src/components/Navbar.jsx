@@ -6,7 +6,16 @@ import { ShopContext } from '../context/ShopContext'
 
 const Navbar = () => {
     const [visible, setVisible] = useState(false);
-    const { setShowSearch, getCartCount } = useContext(ShopContext);
+    const { setShowSearch, getCartCount, navigate, token, setToken, setCartItems } = useContext(ShopContext);
+
+    const logout = () => {
+        navigate('/login');
+        localStorage.removeItem('token');
+        setToken('');
+        setCartItems({});
+        
+    }
+
   return (
     <div className="flex justify-between items-center py-5 font-medium">
         <Link to='/'><img src={assets.logo} className="w-36" alt="" /></Link>
@@ -36,7 +45,7 @@ const Navbar = () => {
                     <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 rounded'>
                         <Link to='/profile'><p className='cursor-pointer text-slate-600 hover:text-black'>My Profile</p></Link>
                         <Link to='/orders'><p className='cursor-pointer text-slate-600 hover:text-black'>Orders</p></Link>
-                        <p className='cursor-pointer text-slate-600 hover:text-black'>Logout</p>
+                        <p onClick={logout} className='cursor-pointer text-slate-600 hover:text-black'>Logout</p>
 
                     </div>
                 </div>
